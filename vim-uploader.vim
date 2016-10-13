@@ -4,7 +4,7 @@ endif
 
 " echo line ("$") = line count
 
-function! Test()
+function! Paste(title)
 " Python starts here
 python3 << EOF
 
@@ -15,8 +15,10 @@ def pasteText(text):
     # combine the text list into one string with each line as \n
     combinedString = "\n".join(text)
     
-    payload = {"code" : combinedString, "title" : "code"}
-     
+    codeTitle = vim.eval("a:title")
+
+    payload = {"code" : combinedString, "title" : codeTitle}
+
     r = requests.post ("https://api.teknik.io/v1/Paste", data=payload)
     
     # Display the response from the server
@@ -28,7 +30,9 @@ pasteText(text)
 
 
 EOF
+
 endfunc
 
-call Test()
+
+"call Test()
 
